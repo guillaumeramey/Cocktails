@@ -9,11 +9,18 @@
 /* Begin PBXBuildFile section */
 		A42A0DC424D3118100D09121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42A0DC324D3118100D09121 /* AppDelegate.swift */; };
 		A42A0DC624D3118100D09121 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42A0DC524D3118100D09121 /* SceneDelegate.swift */; };
-		A42A0DC824D3118100D09121 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42A0DC724D3118100D09121 /* ViewController.swift */; };
+		A42A0DC824D3118100D09121 /* DrinkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42A0DC724D3118100D09121 /* DrinkVC.swift */; };
 		A42A0DCB24D3118100D09121 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A42A0DC924D3118100D09121 /* Main.storyboard */; };
 		A42A0DCD24D3118300D09121 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A42A0DCC24D3118300D09121 /* Assets.xcassets */; };
 		A42A0DD024D3118300D09121 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A42A0DCE24D3118300D09121 /* LaunchScreen.storyboard */; };
 		A42A0DDB24D3118400D09121 /* CocktailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42A0DDA24D3118400D09121 /* CocktailsTests.swift */; };
+		A42A0DE624D3119600D09121 /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42A0DE524D3119600D09121 /* Drink.swift */; };
+		A42A0DE824D311AF00D09121 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42A0DE724D311AF00D09121 /* Ingredient.swift */; };
+		A42A0DED24D3132F00D09121 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42A0DEC24D3132F00D09121 /* NetworkController.swift */; };
+		A4FCE73724D3279B00A17DCB /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCE73624D3279B00A17DCB /* SearchVC.swift */; };
+		A4FCE73924D3282700A17DCB /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCE73824D3282700A17DCB /* SearchCollectionViewCell.swift */; };
+		A4FCE73B24D32BBF00A17DCB /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCE73A24D32BBF00A17DCB /* ImageLoader.swift */; };
+		A4FCE73D24D38D8700A17DCB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCE73C24D38D8700A17DCB /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +37,7 @@
 		A42A0DC024D3118100D09121 /* Cocktails.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocktails.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A42A0DC324D3118100D09121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A42A0DC524D3118100D09121 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A42A0DC724D3118100D09121 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A42A0DC724D3118100D09121 /* DrinkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkVC.swift; sourceTree = "<group>"; };
 		A42A0DCA24D3118100D09121 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A42A0DCC24D3118300D09121 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A42A0DCF24D3118300D09121 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +45,13 @@
 		A42A0DD624D3118400D09121 /* CocktailsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocktailsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A42A0DDA24D3118400D09121 /* CocktailsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsTests.swift; sourceTree = "<group>"; };
 		A42A0DDC24D3118400D09121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A42A0DE524D3119600D09121 /* Drink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
+		A42A0DE724D311AF00D09121 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		A42A0DEC24D3132F00D09121 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		A4FCE73624D3279B00A17DCB /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		A4FCE73824D3282700A17DCB /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4FCE73A24D32BBF00A17DCB /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		A4FCE73C24D38D8700A17DCB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,11 +95,13 @@
 			children = (
 				A42A0DC324D3118100D09121 /* AppDelegate.swift */,
 				A42A0DC524D3118100D09121 /* SceneDelegate.swift */,
-				A42A0DC724D3118100D09121 /* ViewController.swift */,
-				A42A0DC924D3118100D09121 /* Main.storyboard */,
 				A42A0DCC24D3118300D09121 /* Assets.xcassets */,
-				A42A0DCE24D3118300D09121 /* LaunchScreen.storyboard */,
 				A42A0DD124D3118300D09121 /* Info.plist */,
+				A4FCE73C24D38D8700A17DCB /* Extensions.swift */,
+				A42A0DE924D311D000D09121 /* Model */,
+				A42A0DEB24D311E900D09121 /* View */,
+				A42A0DEA24D311DA00D09121 /* Controller */,
+				A4FCE73A24D32BBF00A17DCB /* ImageLoader.swift */,
 			);
 			path = Cocktails;
 			sourceTree = "<group>";
@@ -97,6 +113,35 @@
 				A42A0DDC24D3118400D09121 /* Info.plist */,
 			);
 			path = CocktailsTests;
+			sourceTree = "<group>";
+		};
+		A42A0DE924D311D000D09121 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A42A0DE524D3119600D09121 /* Drink.swift */,
+				A42A0DE724D311AF00D09121 /* Ingredient.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A42A0DEA24D311DA00D09121 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A42A0DC724D3118100D09121 /* DrinkVC.swift */,
+				A42A0DEC24D3132F00D09121 /* NetworkController.swift */,
+				A4FCE73624D3279B00A17DCB /* SearchVC.swift */,
+				A4FCE73824D3282700A17DCB /* SearchCollectionViewCell.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A42A0DEB24D311E900D09121 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A42A0DCE24D3118300D09121 /* LaunchScreen.storyboard */,
+				A42A0DC924D3118100D09121 /* Main.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +245,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A42A0DC824D3118100D09121 /* ViewController.swift in Sources */,
+				A42A0DC824D3118100D09121 /* DrinkVC.swift in Sources */,
 				A42A0DC424D3118100D09121 /* AppDelegate.swift in Sources */,
+				A42A0DED24D3132F00D09121 /* NetworkController.swift in Sources */,
+				A42A0DE824D311AF00D09121 /* Ingredient.swift in Sources */,
+				A42A0DE624D3119600D09121 /* Drink.swift in Sources */,
+				A4FCE73D24D38D8700A17DCB /* Extensions.swift in Sources */,
+				A4FCE73B24D32BBF00A17DCB /* ImageLoader.swift in Sources */,
 				A42A0DC624D3118100D09121 /* SceneDelegate.swift in Sources */,
+				A4FCE73924D3282700A17DCB /* SearchCollectionViewCell.swift in Sources */,
+				A4FCE73724D3279B00A17DCB /* SearchVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
