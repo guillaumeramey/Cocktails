@@ -66,9 +66,12 @@ struct NetworkController {
         }.resume()
     }
     
-    func fetchDrinks(query: String, completion: @escaping (Result<[Drink], NetworkError>) -> Void) {
+    func fetchItems<T: Item>(_ itemType: T.Type, query: String, completion: @escaping (Result<[Item], NetworkError>) -> Void) {
         
-        let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(query)"
+        var urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?"
+        urlString += T.self == Drink.self ? "s=" : ""
+        urlString += T.self == Ingredient.self ? "i=" : ""
+        urlString += query
         
         guard let url = URL(string: urlString) else {
             completion(.failure(.invalidUrl))
@@ -93,12 +96,22 @@ struct NetworkController {
                 }
                 
                 do {
-                    let result = try JSONDecoder().decode(SearchDrink.self, from: data)
-                    guard let drinks = result.drinks else {
-                        completion(.failure(.noResult))
-                        return
+                    if T.self == Drink.self {
+                        let result = try JSONDecoder().decode(SearchDrink.self, from: data)
+                        guard let drinks = result.drinks as? [T] else {
+                            completion(.failure(.noResult))
+                            return
+                        }
+                        completion(.success(drinks))
                     }
-                    completion(.success(drinks))
+                    else if T.self == Ingredient.self {
+                        let result = try JSONDecoder().decode(SearchIngredient.self, from: data)
+                        guard let ingredients = result.ingredients as? [T] else {
+                            completion(.failure(.noResult))
+                            return
+                        }
+                        completion(.success(ingredients))
+                    }
                 } catch {
                     completion(.failure(.badJson))
                 }

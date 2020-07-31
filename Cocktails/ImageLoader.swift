@@ -15,7 +15,7 @@ extension UIImageView {
     func load(url urlString: String) {
         
         guard let url = URL(string: urlString) else {
-//            self.image = UIImage(named: "questionmark")
+            self.image = UIImage(systemName: "questionmark")
             return
         }
         

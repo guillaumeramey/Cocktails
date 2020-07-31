@@ -11,35 +11,50 @@ import UIKit
 class SearchVC: UIViewController {
     
     // MARK: - PROPERTIES
-
-    private var drinks: [Drink]!
+    
     private let cellId = "Cell"
-    private var selectedDrink: Drink!
+    private var itemType: Item.Type!
+    private var items: [Item]!
+    private var selectedItem: Item!
     
     
     // MARK: - OUTLETS
-
+    
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchCollectionView: UICollectionView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     
     // MARK: - METHODS
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
     }
     
-    private func searchDrinks() {
+    private func performSearch() {
         guard let query = searchTextField.text else { return }
-        NetworkController().fetchDrinks(query: query) { result in
-            switch result {
-            case .success(let drinks):
-                self.drinks = drinks
-                self.searchCollectionView.reloadData()
-            case .failure(let errorMessage):
-                self.alert(title: "Erreur", message: errorMessage.rawValue)
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            NetworkController().fetchItems(Drink.self, query: query) { result in
+                self.handleSearchResult(result: result)
             }
+        case 1:
+            NetworkController().fetchItems(Ingredient.self, query: query) { result in
+                self.handleSearchResult(result: result)
+            }
+        default:
+            alert(title: "Erreur", message: "Erreur interne.")
+        }
+    }
+    
+    private func handleSearchResult(result: Result<[Item], NetworkError>) {
+        switch result {
+        case .success(let items):
+            self.items = items
+            self.searchCollectionView.reloadData()
+        case .failure(let errorMessage):
+            self.alert(title: "Erreur", message: errorMessage.rawValue)
         }
     }
     
@@ -51,18 +66,29 @@ class SearchVC: UIViewController {
     
     // MARK: - ACTIONS
     
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            itemType = Drink.self
+        case 1:
+            itemType = Ingredient.self
+        default:
+            return
+        }
+    }
+    
     @IBAction func textFieldPrimaryAction(_ sender: Any) {
         dismissKeyboard()
-        searchDrinks()
+        performSearch()
     }
     
     
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SearchToDrink" {
-            guard let destinationVC = segue.destination as? DrinkVC else { return }
-            destinationVC.drink = selectedDrink
+        if segue.identifier == "SearchToItemDetail" {
+            guard let destinationVC = segue.destination as? ItemDetailVC else { return }
+            destinationVC.item = selectedItem
         }
     }
 }
@@ -72,12 +98,12 @@ class SearchVC: UIViewController {
 
 extension SearchVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return drinks != nil ? drinks.count : 0
+        return items != nil ? items.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = searchCollectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SearchCollectionViewCell
-        cell.drink = drinks[indexPath.row]
+        cell.item = items[indexPath.row]
         return cell
     }
 }
@@ -87,8 +113,8 @@ extension SearchVC: UICollectionViewDataSource {
 
 extension SearchVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedDrink = drinks[indexPath.row]
-        performSegue(withIdentifier: "SearchToDrink", sender: self)
+        selectedItem = items[indexPath.row]
+        performSegue(withIdentifier: "SearchToItemDetail", sender: self)
     }
 }
 

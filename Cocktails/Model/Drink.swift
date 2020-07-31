@@ -10,10 +10,17 @@ import Foundation
 
 // MARK: - Drink
 
-struct Drink: Decodable {
-    let id: String
-    let name: String
-    let thumbnail: String
+protocol Item: Decodable {
+    var id: String { get }
+    var name: String { get }
+    var image: String { get }
+    var imagePreview: String { get }
+}
+
+struct Drink: Item, Decodable {
+    var id: String
+    var name: String
+    let image: String
     let alcoholic: String?
     let glass: String?
     let instructions: String?
@@ -35,6 +42,10 @@ struct Drink: Decodable {
          measure8, measure9, measure10, measure11, measure12, measure13, measure14, measure15
         ].compactMap { $0 }
     }
+    
+    var imagePreview: String {
+        "\(image)/preview"
+    }
 }
 
 extension Drink {
@@ -44,7 +55,7 @@ extension Drink {
         case alcoholic = "strAlcoholic"
         case glass = "strGlass"
         case instructions = "strInstructions"
-        case thumbnail = "strDrinkThumb"
+        case image = "strDrinkThumb"
         case ingredient1 = "strIngredient1"
         case ingredient2 = "strIngredient2"
         case ingredient3 = "strIngredient3"

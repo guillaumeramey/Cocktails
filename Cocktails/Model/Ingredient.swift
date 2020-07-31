@@ -10,13 +10,17 @@ import Foundation
 
 // MARK: - Ingredient
 
-struct Ingredient: Decodable {
-    var id: String? = nil
-    var name: String? = nil
-    var description: String? = nil
-    var type: String? = nil
-    var alcohol: String? = nil
-    var abv: String? = nil
+struct Ingredient: Item, Decodable {
+    var id: String
+    var name: String
+    var description: String?
+    
+    var image: String {
+        "https://www.thecocktaildb.com/images/ingredients/\(name).png"
+    }
+    var imagePreview: String {
+        "https://www.thecocktaildb.com/images/ingredients/\(name)-Small.png"
+    }
 }
 
 extension Ingredient {
@@ -24,20 +28,17 @@ extension Ingredient {
         case id = "idIngredient"
         case name = "strIngredient"
         case description = "strDescription"
-        case type = "strType"
-        case alcohol = "strAlcohol"
-        case abv = "strABV"
     }
 }
 
 // MARK: - SearchIngredient
 
 struct SearchIngredient: Decodable {
-    let ingredients: [Ingredient]
+    let ingredients: [Ingredient]?
 }
 
 // MARK: - SearchDrinkByIngredient
 
 struct SearchDrinkByIngredient: Decodable {
-    let drinks: [Drink]
+    let drinks: [Drink]?
 }

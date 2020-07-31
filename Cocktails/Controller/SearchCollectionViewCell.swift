@@ -13,17 +13,17 @@ class SearchCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
-    var drink: Drink! {
+    var item: Item! {
         didSet {
-            setCell()
+            displayItem()
         }
     }
     
-    private func setCell() {
+    private func displayItem() {
         contentView.layer.cornerRadius = 10
-        nameLabel.text = drink.name
-        imageView.load(url: drink.thumbnail + "/preview")
+        nameLabel.text = item.name
+        imageView.load(url: item.imagePreview)
         imageView.layer.cornerRadius = 10
-//        imageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        //        imageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
 }
