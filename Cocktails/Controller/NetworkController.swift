@@ -26,14 +26,13 @@ enum SearchCriteria {
 }
 
 struct NetworkController {
-    
     private var urlSession: URLSession
     
     init(urlSession: URLSession = .shared) {
         self.urlSession = urlSession
     }
     
-    func fetchDrinks(_ criteria: SearchCriteria, query: String, completion: @escaping (Result<[Drink], NetworkError>) -> Void) {
+    func fetchDrinks(_ criteria: SearchCriteria, query: String = "", completion: @escaping (Result<[Drink], NetworkError>) -> Void) {
         
         guard let url = createUrl(query, criteria) else {
             completion(.failure(.invalidUrl))

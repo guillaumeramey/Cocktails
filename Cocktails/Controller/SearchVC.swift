@@ -12,6 +12,7 @@ class SearchVC: UIViewController {
     
     // MARK: - PROPERTIES
     
+    private var cellId = "ItemCell"
     private var drinks: [Drink]!
     private var selectedIndex: Int!
     private var criteria: SearchCriteria = .byName
@@ -29,6 +30,8 @@ class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        
+        searchCollectionView.register(UINib.init(nibName: cellId, bundle: nil), forCellWithReuseIdentifier: cellId)
     }
     
     private func performSearch() {
@@ -47,7 +50,9 @@ class SearchVC: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        searchCollectionView.reloadData()
+        if searchCollectionView != nil {
+            searchCollectionView.reloadData()
+        }
     }
     
     
@@ -89,7 +94,9 @@ extension SearchVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = searchCollectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as! SearchCollectionViewCell
+        guard let cell = searchCollectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ItemCell else {
+            return UICollectionViewCell()
+        }
         cell.drink = drinks[indexPath.row]
         return cell
     }

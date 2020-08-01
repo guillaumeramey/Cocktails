@@ -1,15 +1,16 @@
 //
-//  SearchCollectionViewCell.swift
+//  ItemCell.swift
 //  Cocktails
 //
-//  Created by Guillaume Ramey on 30/07/2020.
+//  Created by Guillaume Ramey on 01/08/2020.
 //  Copyright © 2020 Guillaume Ramey. All rights reserved.
 //
 
 import UIKit
 
-class SearchCollectionViewCell: UICollectionViewCell {
+class ItemCell: UICollectionViewCell {
     
+    @IBOutlet weak var background: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -18,9 +19,14 @@ class SearchCollectionViewCell: UICollectionViewCell {
             displayDrink()
         }
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
     
     private func displayDrink() {
-        contentView.layer.cornerRadius = 10
+        background.layer.cornerRadius = 10
         nameLabel.text = drink.name
         imageView.load(url: drink.imagePreview)
         imageView.layer.cornerRadius = 10

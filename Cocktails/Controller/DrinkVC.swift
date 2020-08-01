@@ -9,13 +9,21 @@
 import UIKit
 
 class DrinkVC: UITableViewController {
-
+    
+    // MARK: - PROPERTIES
+    
     var drink: Drink!
+    
+    
+    // MARK: - OUTLETS
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var instructionsLabel: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
+
+    
+    // MARK: - METHODS
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +52,12 @@ class DrinkVC: UITableViewController {
         imageView.load(url: drink.image)
         nameLabel.text = drink.name
         instructionsLabel.text = drink.instructions
-        var formattedIngredients = ""
+        var formattedIngredients = [String]()
         for (ingredient, measure) in zip(drink.ingredients, drink.measures) {
-            formattedIngredients += ingredient + " : " + measure + "\n"
+            if ingredient.isEmpty { continue }
+            formattedIngredients.append(ingredient + " : " + measure)
         }
-        ingredientsLabel.text = formattedIngredients
+        ingredientsLabel.text = formattedIngredients.joined(separator: "\n")
     }
 }
 
