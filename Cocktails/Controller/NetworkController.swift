@@ -18,19 +18,24 @@ enum NetworkError: String, Error {
     case badJson = "Problème JSON."
 }
 
+enum SearchCriteria {
+    case byId
+    case byName
+    case byIngredient
+    case random
+}
+
 struct NetworkController {
     
     private var urlSession: URLSession
-
+    
     init(urlSession: URLSession = .shared) {
         self.urlSession = urlSession
     }
-
-    func fetchRandomDrink(completion: @escaping (Result<Drink, NetworkError>) -> Void) {
+    
+    func fetchDrinks(_ criteria: SearchCriteria, query: String, completion: @escaping (Result<[Drink], NetworkError>) -> Void) {
         
-        let urlString = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-        
-        guard let url = URL(string: urlString) else {
+        guard let url = createUrl(query, criteria) else {
             completion(.failure(.invalidUrl))
             return
         }
@@ -54,11 +59,11 @@ struct NetworkController {
                 
                 do {
                     let result = try JSONDecoder().decode(SearchDrink.self, from: data)
-                    guard let randomDrink = result.drinks?.first else {
+                    guard let drinks = result.drinks else {
                         completion(.failure(.noResult))
                         return
                     }
-                    completion(.success(randomDrink))
+                    completion(.success(drinks))
                 } catch {
                     completion(.failure(.badJson))
                 }
@@ -66,56 +71,25 @@ struct NetworkController {
         }.resume()
     }
     
-    func fetchItems<T: Item>(_ itemType: T.Type, query: String, completion: @escaping (Result<[Item], NetworkError>) -> Void) {
+    func createUrl(_ query: String, _ criteria: SearchCriteria) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "www.thecocktaildb.com"
         
-        var urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?"
-        urlString += T.self == Drink.self ? "s=" : ""
-        urlString += T.self == Ingredient.self ? "i=" : ""
-        urlString += query
-        
-        guard let url = URL(string: urlString) else {
-            completion(.failure(.invalidUrl))
-            return
+        switch criteria {
+        case .byId:
+            components.path = "/api/json/v1/1/lookup.php"
+            components.queryItems = [URLQueryItem(name: "i", value: query)]
+        case .byName:
+            components.path = "/api/json/v1/1/search.php"
+            components.queryItems = [URLQueryItem(name: "s", value: query)]
+        case .byIngredient:
+            components.path = "/api/json/v1/1/filter.php"
+            components.queryItems = [URLQueryItem(name: "i", value: query)]
+        case .random:
+            components.path = "/api/json/v1/1/random.php"
         }
         
-        urlSession.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async {
-                guard response != nil else {
-                    completion(.failure(.noResponse))
-                    return
-                }
-                
-                guard error == nil else {
-                    completion(.failure(.error))
-                    return
-                }
-                
-                guard let data = data else {
-                    completion(.failure(.noData))
-                    return
-                }
-                
-                do {
-                    if T.self == Drink.self {
-                        let result = try JSONDecoder().decode(SearchDrink.self, from: data)
-                        guard let drinks = result.drinks as? [T] else {
-                            completion(.failure(.noResult))
-                            return
-                        }
-                        completion(.success(drinks))
-                    }
-                    else if T.self == Ingredient.self {
-                        let result = try JSONDecoder().decode(SearchIngredient.self, from: data)
-                        guard let ingredients = result.ingredients as? [T] else {
-                            completion(.failure(.noResult))
-                            return
-                        }
-                        completion(.success(ingredients))
-                    }
-                } catch {
-                    completion(.failure(.badJson))
-                }
-            }
-        }.resume()
+        return components.url
     }
 }

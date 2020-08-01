@@ -12,10 +12,9 @@ class SearchVC: UIViewController {
     
     // MARK: - PROPERTIES
     
-    private let cellId = "Cell"
-    private var itemType: Item.Type!
-    private var items: [Item]!
-    private var selectedItem: Item!
+    private var drinks: [Drink]!
+    private var selectedIndex: Int!
+    private var criteria: SearchCriteria = .byName
     
     
     // MARK: - OUTLETS
@@ -34,27 +33,15 @@ class SearchVC: UIViewController {
     
     private func performSearch() {
         guard let query = searchTextField.text else { return }
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            NetworkController().fetchItems(Drink.self, query: query) { result in
-                self.handleSearchResult(result: result)
+        
+        NetworkController().fetchDrinks(criteria, query: query) { result in
+            switch result {
+            case .success(let drinks):
+                self.drinks = drinks
+                self.searchCollectionView.reloadData()
+            case .failure(let errorMessage):
+                self.alert(title: "Erreur", message: errorMessage.rawValue)
             }
-        case 1:
-            NetworkController().fetchItems(Ingredient.self, query: query) { result in
-                self.handleSearchResult(result: result)
-            }
-        default:
-            alert(title: "Erreur", message: "Erreur interne.")
-        }
-    }
-    
-    private func handleSearchResult(result: Result<[Item], NetworkError>) {
-        switch result {
-        case .success(let items):
-            self.items = items
-            self.searchCollectionView.reloadData()
-        case .failure(let errorMessage):
-            self.alert(title: "Erreur", message: errorMessage.rawValue)
         }
     }
     
@@ -69,9 +56,9 @@ class SearchVC: UIViewController {
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            itemType = Drink.self
+            criteria = .byName
         case 1:
-            itemType = Ingredient.self
+            criteria = .byIngredient
         default:
             return
         }
@@ -86,9 +73,9 @@ class SearchVC: UIViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SearchToItemDetail" {
-            guard let destinationVC = segue.destination as? ItemDetailVC else { return }
-            destinationVC.item = selectedItem
+        if segue.identifier == "SearchToDrink" {
+            guard let drinkVC = segue.destination as? DrinkVC else { return }
+            drinkVC.drink = drinks[selectedIndex]
         }
     }
 }
@@ -98,12 +85,12 @@ class SearchVC: UIViewController {
 
 extension SearchVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items != nil ? items.count : 0
+        return drinks != nil ? drinks.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = searchCollectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SearchCollectionViewCell
-        cell.item = items[indexPath.row]
+        let cell = searchCollectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as! SearchCollectionViewCell
+        cell.drink = drinks[indexPath.row]
         return cell
     }
 }
@@ -113,8 +100,8 @@ extension SearchVC: UICollectionViewDataSource {
 
 extension SearchVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedItem = items[indexPath.row]
-        performSegue(withIdentifier: "SearchToItemDetail", sender: self)
+        selectedIndex = indexPath.row
+        performSegue(withIdentifier: "SearchToDrink", sender: self)
     }
 }
 

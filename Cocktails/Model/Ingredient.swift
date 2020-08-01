@@ -8,9 +8,10 @@
 
 import Foundation
 
+
 // MARK: - Ingredient
 
-struct Ingredient: Item, Decodable {
+struct Ingredient: Decodable {
     var id: String
     var name: String
     var description: String?
@@ -31,14 +32,9 @@ extension Ingredient {
     }
 }
 
+
 // MARK: - SearchIngredient
 
 struct SearchIngredient: Decodable {
     let ingredients: [Ingredient]?
-}
-
-// MARK: - SearchDrinkByIngredient
-
-struct SearchDrinkByIngredient: Decodable {
-    let drinks: [Drink]?
 }

@@ -23,8 +23,8 @@
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SZc-cx-AZY">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="32"/>
                                         <segments>
-                                            <segment title="Cocktail"/>
-                                            <segment title="Ingredient"/>
+                                            <segment title="by name"/>
+                                            <segment title="by ingredient"/>
                                         </segments>
                                         <connections>
                                             <action selector="segmentedControlValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="PLo-gK-xVq"/>
@@ -50,7 +50,7 @@
                                     <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="v72-WK-g3v" customClass="SearchCollectionViewCell" customModule="Cocktails" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchCollectionViewCell" id="v72-WK-g3v" customClass="SearchCollectionViewCell" customModule="Cocktails" customModuleProvider="target">
                                         <rect key="frame" x="10" y="0.0" width="180" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Hax-YP-PA6">
@@ -111,7 +111,7 @@
                         <outlet property="searchCollectionView" destination="SZq-GP-sUa" id="J0R-y1-sEl"/>
                         <outlet property="searchTextField" destination="H2h-OT-aq3" id="osp-zB-7td"/>
                         <outlet property="segmentedControl" destination="SZc-cx-AZY" id="2rV-LI-gn5"/>
-                        <segue destination="SVT-Rq-KEq" kind="show" identifier="SearchToItemDetail" id="0nU-lG-WgG"/>
+                        <segue destination="SVT-Rq-KEq" kind="show" identifier="SearchToDrink" id="0nU-lG-WgG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -198,14 +198,15 @@
             </objects>
             <point key="canvasLocation" x="-33" y="-353"/>
         </scene>
-        <!--Item DetailVC-->
+        <!--DrinkVC-->
         <scene sceneID="xKu-Av-QGV">
             <objects>
-                <tableViewController id="SVT-Rq-KEq" customClass="ItemDetailVC" customModule="Cocktails" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="SVT-Rq-KEq" customClass="DrinkVC" customModule="Cocktails" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="q5X-lN-K76">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                         <sections>
                             <tableViewSection id="tAB-ce-Oab">
                                 <cells>
@@ -264,7 +265,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredients" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jND-8w-klD">
                                                     <rect key="frame" x="30" y="21" width="354" height="2"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                     <color key="textColor" name="Color text"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -284,7 +285,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNy-DD-CkE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNy-DD-CkE">
                                                     <rect key="frame" x="30" y="21" width="354" height="2"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" name="Color text"/>
@@ -309,9 +310,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="OE6-ka-XZA"/>
                     <connections>
-                        <outlet property="descriptionLabel" destination="FNy-DD-CkE" id="Nc7-RI-xdR"/>
                         <outlet property="imageView" destination="WLe-an-cUf" id="n0U-6v-evt"/>
                         <outlet property="ingredientsLabel" destination="jND-8w-klD" id="xDd-vB-tCG"/>
+                        <outlet property="instructionsLabel" destination="FNy-DD-CkE" id="zLb-NY-wap"/>
                         <outlet property="nameLabel" destination="3et-Ai-xI0" id="iJU-3e-rIS"/>
                     </connections>
                 </tableViewController>

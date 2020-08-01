@@ -10,45 +10,45 @@ import UIKit
 
 class DrinkVC: UITableViewController {
 
-    var item: Item!
-    private var drink: Drink!
-    private var ingredient: Ingredient!
+    var drink: Drink!
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var instructionsLabel: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        displayItem()
-        if let drink = item as? Drink {
-            self.drink = drink
+        
+        if drink.ingredients.isEmpty {
+            fetchDrink()
+        } else {
             displayDrink()
-        }
-        else if let ingredient = item as? Ingredient {
-            self.ingredient = ingredient
-            displayIngredient()
         }
     }
     
-    private func displayItem() {
-        imageView.load(url: item.image)
-        nameLabel.text = item.name
+    private func fetchDrink() {
+        NetworkController().fetchDrinks(.byId, query: drink.id) { result in
+            switch result {
+            case .success(let drinks):
+                self.drink = drinks.first
+                self.displayDrink()
+                self.tableView.reloadData()
+            case .failure(let errorMessage):
+                self.alert(title: "Erreur", message: errorMessage.rawValue)
+            }
+        }
     }
     
     private func displayDrink() {
-        descriptionLabel.text = drink.instructions
+        imageView.load(url: drink.image)
+        nameLabel.text = drink.name
+        instructionsLabel.text = drink.instructions
         var formattedIngredients = ""
         for (ingredient, measure) in zip(drink.ingredients, drink.measures) {
             formattedIngredients += ingredient + " : " + measure + "\n"
         }
         ingredientsLabel.text = formattedIngredients
-    }
-    
-    private func displayIngredient() {
-        descriptionLabel.text = ingredient.description
     }
 }
 

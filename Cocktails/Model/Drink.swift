@@ -8,16 +8,10 @@
 
 import Foundation
 
+
 // MARK: - Drink
 
-protocol Item: Decodable {
-    var id: String { get }
-    var name: String { get }
-    var image: String { get }
-    var imagePreview: String { get }
-}
-
-struct Drink: Item, Decodable {
+struct Drink: Decodable {
     var id: String
     var name: String
     let image: String
