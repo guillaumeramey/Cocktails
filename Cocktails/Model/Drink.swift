@@ -12,18 +12,42 @@ import Foundation
 // MARK: - Drink
 
 struct Drink: Decodable {
-    var id: String
-    var name: String
+    let id: String
+    let name: String
     let image: String
-    let alcoholic: String?
-    let glass: String?
-    let instructions: String?
-    private let ingredient1, ingredient2, ingredient3, ingredient4, ingredient5: String?
-    private let ingredient6, ingredient7, ingredient8, ingredient9, ingredient10: String?
-    private let ingredient11, ingredient12, ingredient13, ingredient14, ingredient15: String?
-    private let measure1, measure2, measure3, measure4, measure5: String?
-    private let measure6, measure7, measure8, measure9, measure10: String?
-    private let measure11, measure12, measure13, measure14, measure15: String?
+    var alcoholic: String? = nil
+    var glass: String? = nil
+    var instructions: String? = nil
+    private var ingredient1: String? = nil
+    private var ingredient2: String? = nil
+    private var ingredient3: String? = nil
+    private var ingredient4: String? = nil
+    private var ingredient5: String? = nil
+    private var ingredient6: String? = nil
+    private var ingredient7: String? = nil
+    private var ingredient8: String? = nil
+    private var ingredient9: String? = nil
+    private var ingredient10: String? = nil
+    private var ingredient11: String? = nil
+    private var ingredient12: String? = nil
+    private var ingredient13: String? = nil
+    private var ingredient14: String? = nil
+    private var ingredient15: String? = nil
+    private var measure1: String? = nil
+    private var measure2: String? = nil
+    private var measure3: String? = nil
+    private var measure4: String? = nil
+    private var measure5: String? = nil
+    private var measure6: String? = nil
+    private var measure7: String? = nil
+    private var measure8: String? = nil
+    private var measure9: String? = nil
+    private var measure10: String? = nil
+    private var measure11: String? = nil
+    private var measure12: String? = nil
+    private var measure13: String? = nil
+    private var measure14: String? = nil
+    private var measure15: String? = nil
     
     var ingredients: [String] {
         [ingredient1, ingredient2, ingredient3, ingredient4, ingredient5,
@@ -39,6 +63,14 @@ struct Drink: Decodable {
     
     var imagePreview: String {
         "\(image)/preview"
+    }
+    
+//    let imageData: Data?
+    
+    init(from bookmark: Bookmark) {
+        id = bookmark.id ?? ""
+        name = bookmark.name ?? ""
+        image = bookmark.image ?? ""
     }
 }
 

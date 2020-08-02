@@ -13,6 +13,7 @@ class ItemCell: UICollectionViewCell {
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var drink: Drink! {
         didSet {
@@ -28,7 +29,10 @@ class ItemCell: UICollectionViewCell {
     private func displayDrink() {
         background.layer.cornerRadius = 10
         nameLabel.text = drink.name
-        imageView.load(url: drink.imagePreview)
+        loadingIndicator.startAnimating()
+        imageView.load(url: drink.imagePreview) {
+            self.loadingIndicator.stopAnimating()
+        }
         imageView.layer.cornerRadius = 10
     }
 }

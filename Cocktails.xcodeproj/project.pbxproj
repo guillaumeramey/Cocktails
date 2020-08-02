@@ -20,6 +20,8 @@
 		A47BCB9F24D57D2000481890 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47BCB9D24D57D2000481890 /* ItemCell.swift */; };
 		A47BCBA024D57D2000481890 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47BCB9E24D57D2000481890 /* ItemCell.xib */; };
 		A47BCBA224D5800D00481890 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47BCBA124D5800D00481890 /* HomeVC.swift */; };
+		A4F552DF24D6B5E5004793CC /* Cocktails.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A4F552DD24D6B5E5004793CC /* Cocktails.xcdatamodeld */; };
+		A4F552E124D6BD91004793CC /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F552E024D6BD91004793CC /* Bookmark.swift */; };
 		A4FCE73724D3279B00A17DCB /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCE73624D3279B00A17DCB /* SearchVC.swift */; };
 		A4FCE73B24D32BBF00A17DCB /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCE73A24D32BBF00A17DCB /* ImageLoader.swift */; };
 		A4FCE73D24D38D8700A17DCB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCE73C24D38D8700A17DCB /* Extensions.swift */; };
@@ -53,6 +55,8 @@
 		A47BCB9D24D57D2000481890 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		A47BCB9E24D57D2000481890 /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		A47BCBA124D5800D00481890 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		A4F552DE24D6B5E5004793CC /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		A4F552E024D6BD91004793CC /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		A4FCE73624D3279B00A17DCB /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		A4FCE73A24D32BBF00A17DCB /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		A4FCE73C24D38D8700A17DCB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 		A42A0DE924D311D000D09121 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A4F552DD24D6B5E5004793CC /* Cocktails.xcdatamodeld */,
+				A4F552E024D6BD91004793CC /* Bookmark.swift */,
 				A42A0DE524D3119600D09121 /* Drink.swift */,
 				A42A0DE724D311AF00D09121 /* Ingredient.swift */,
 			);
@@ -252,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4F552E124D6BD91004793CC /* Bookmark.swift in Sources */,
 				A42A0DC824D3118100D09121 /* DrinkVC.swift in Sources */,
 				A42A0DC424D3118100D09121 /* AppDelegate.swift in Sources */,
 				A42A0DED24D3132F00D09121 /* NetworkController.swift in Sources */,
@@ -263,6 +270,7 @@
 				A42A0DC624D3118100D09121 /* SceneDelegate.swift in Sources */,
 				A47BCBA224D5800D00481890 /* HomeVC.swift in Sources */,
 				A4FCE73724D3279B00A17DCB /* SearchVC.swift in Sources */,
+				A4F552DF24D6B5E5004793CC /* Cocktails.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +537,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A4F552DD24D6B5E5004793CC /* Cocktails.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A4F552DE24D6B5E5004793CC /* Model.xcdatamodel */,
+			);
+			currentVersion = A4F552DE24D6B5E5004793CC /* Model.xcdatamodel */;
+			path = Cocktails.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A42A0DB824D3118100D09121 /* Project object */;
 }

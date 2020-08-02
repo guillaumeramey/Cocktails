@@ -128,16 +128,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="B74-Eg-iRI">
-                                                    <rect key="frame" x="10" y="10" width="227.5" height="45"/>
+                                                    <rect key="frame" x="10" y="10" width="194" height="45"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyj-Up-AkB">
-                                                            <rect key="frame" x="0.0" y="0.0" width="186.5" height="45"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyj-Up-AkB">
+                                                            <rect key="frame" x="0.0" y="0.0" width="153" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="34"/>
                                                             <color key="textColor" name="Color text"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="( )" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ON-8s-FuW">
-                                                            <rect key="frame" x="191.5" y="0.0" width="36" height="45"/>
+                                                            <rect key="frame" x="158" y="0.0" width="36" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="34"/>
                                                             <color key="textColor" name="Color text"/>
                                                             <nil key="highlightedColor"/>
@@ -236,7 +236,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f4I-Zk-i6L">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f4I-Zk-i6L">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="o7R-yH-T9y">
@@ -280,8 +280,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="oly-Zz-eiX"/>
                     <connections>
-                        <outlet property="bookmarksCollectionView" destination="3fM-9M-eTt" id="69m-rt-WDH"/>
-                        <outlet property="bookmarksCounter" destination="9ON-8s-FuW" id="8ff-fq-Xcn"/>
+                        <outlet property="favoritesCollectionView" destination="3fM-9M-eTt" id="69m-rt-WDH"/>
+                        <outlet property="favoritesCounter" destination="9ON-8s-FuW" id="CHw-Uq-tLl"/>
                         <outlet property="myDrinksCollectionView" destination="f4I-Zk-i6L" id="xl8-L8-ZhV"/>
                         <outlet property="myDrinksCounter" destination="gUQ-r1-3ja" id="9Gk-wc-s9e"/>
                         <segue destination="SVT-Rq-KEq" kind="show" identifier="HomeToDrink" id="ZeM-7z-8hf"/>
@@ -357,6 +357,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="c0h-JE-W4Y">
+                                                    <rect key="frame" x="188.5" y="188.5" width="37" height="37"/>
+                                                    <color key="color" name="Color tint"/>
+                                                </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WLe-an-cUf">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                                     <constraints>
@@ -365,6 +369,8 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="c0h-JE-W4Y" firstAttribute="centerY" secondItem="WLe-an-cUf" secondAttribute="centerY" id="BDo-Uo-6vS"/>
+                                                <constraint firstItem="c0h-JE-W4Y" firstAttribute="centerX" secondItem="WLe-an-cUf" secondAttribute="centerX" id="COV-yZ-ATq"/>
                                                 <constraint firstAttribute="bottom" secondItem="WLe-an-cUf" secondAttribute="bottom" id="Ior-h5-wlJ"/>
                                                 <constraint firstItem="WLe-an-cUf" firstAttribute="leading" secondItem="Ywr-Yz-iAR" secondAttribute="leading" id="Lb4-nd-Vyc"/>
                                                 <constraint firstItem="WLe-an-cUf" firstAttribute="centerX" secondItem="Ywr-Yz-iAR" secondAttribute="centerX" id="X6j-jR-8mT"/>
@@ -451,7 +457,11 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="iKg-8d-Xpm">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="bookmarks" id="gx5-6R-1pH"/>
+                            <barButtonItem systemItem="bookmarks" id="gx5-6R-1pH">
+                                <connections>
+                                    <action selector="addBookmark:" destination="SVT-Rq-KEq" id="Yqm-TK-26h"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="action" id="DmX-dr-MQq"/>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -460,6 +470,7 @@
                         <outlet property="imageView" destination="WLe-an-cUf" id="n0U-6v-evt"/>
                         <outlet property="ingredientsLabel" destination="jND-8w-klD" id="xDd-vB-tCG"/>
                         <outlet property="instructionsLabel" destination="FNy-DD-CkE" id="zLb-NY-wap"/>
+                        <outlet property="loadingIndicator" destination="c0h-JE-W4Y" id="hdi-Ia-RNh"/>
                         <outlet property="nameLabel" destination="3et-Ai-xI0" id="iJU-3e-rIS"/>
                     </connections>
                 </tableViewController>
@@ -469,7 +480,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="AUl-hR-NUn"/>
+        <segue reference="ZeM-7z-8hf"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="house" catalog="system" width="128" height="110"/>

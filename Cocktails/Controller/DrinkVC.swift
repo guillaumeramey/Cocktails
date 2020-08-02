@@ -21,13 +21,14 @@ class DrinkVC: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var instructionsLabel: UILabel!
     @IBOutlet weak var ingredientsLabel: UILabel!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
 
     
     // MARK: - METHODS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         if drink.ingredients.isEmpty {
             fetchDrink()
         } else {
@@ -49,7 +50,10 @@ class DrinkVC: UITableViewController {
     }
     
     private func displayDrink() {
-        imageView.load(url: drink.image)
+        loadingIndicator.startAnimating()
+        imageView.load(url: drink.image) {
+            self.loadingIndicator.stopAnimating()
+        }
         nameLabel.text = drink.name
         instructionsLabel.text = drink.instructions
         var formattedIngredients = [String]()
@@ -58,6 +62,20 @@ class DrinkVC: UITableViewController {
             formattedIngredients.append(ingredient + " : " + measure)
         }
         ingredientsLabel.text = formattedIngredients.joined(separator: "\n")
+    }
+    
+    @IBAction func addBookmark(_ sender: Any) {
+        let bookmark = Bookmark(context: AppDelegate.viewContext)
+        bookmark.drink = drink
+        
+        do {
+            try AppDelegate.viewContext.save()
+        } catch {
+            alert(title: "Erreur", message: "Impossible d'enregistrer les données.")
+        }
+        
+//        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+//        print(paths[0])
     }
 }
 

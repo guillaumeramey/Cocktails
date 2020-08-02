@@ -20,6 +20,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Amk-k2-bnD">
                         <rect key="frame" x="0.0" y="0.0" width="253" height="330"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ZMW-fH-pjr">
+                                <rect key="frame" x="108" y="108" width="37" height="37"/>
+                                <color key="color" name="Color tint"/>
+                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Bk-VE-wEh">
                                 <rect key="frame" x="10" y="10" width="233" height="310"/>
                                 <subviews>
@@ -40,8 +44,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ZMW-fH-pjr" firstAttribute="centerX" secondItem="gGS-6E-vUo" secondAttribute="centerX" id="0S9-6y-ewc"/>
                             <constraint firstAttribute="trailing" secondItem="9Bk-VE-wEh" secondAttribute="trailing" constant="10" id="ENm-DC-RW0"/>
                             <constraint firstItem="9Bk-VE-wEh" firstAttribute="top" secondItem="Amk-k2-bnD" secondAttribute="top" constant="10" id="F7m-Mx-d8K"/>
+                            <constraint firstItem="ZMW-fH-pjr" firstAttribute="centerY" secondItem="gGS-6E-vUo" secondAttribute="centerY" id="Uo7-XP-fUd"/>
                             <constraint firstAttribute="bottom" secondItem="9Bk-VE-wEh" secondAttribute="bottom" constant="10" id="VKV-Ej-EGX"/>
                             <constraint firstItem="9Bk-VE-wEh" firstAttribute="leading" secondItem="Amk-k2-bnD" secondAttribute="leading" constant="10" id="f58-dU-4v7"/>
                         </constraints>
@@ -59,6 +65,7 @@
             <connections>
                 <outlet property="background" destination="Amk-k2-bnD" id="0Pm-Z5-NuR"/>
                 <outlet property="imageView" destination="gGS-6E-vUo" id="AbX-jM-AAY"/>
+                <outlet property="loadingIndicator" destination="ZMW-fH-pjr" id="yzf-Dl-c6h"/>
                 <outlet property="nameLabel" destination="oAY-fJ-3Xh" id="xYr-oP-Cdt"/>
             </connections>
             <point key="canvasLocation" x="284.78260869565219" y="218.97321428571428"/>
@@ -67,6 +74,9 @@
     <resources>
         <namedColor name="Color text">
             <color red="0.14509803921568629" green="0.16470588235294117" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Color tint">
+            <color red="1" green="0.1803921568627451" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -7,34 +7,37 @@
 //
 
 import UIKit
+import CoreData
 
 class HomeVC: UITableViewController {
     
     // MARK: - PROPERTIES
     
     private var cellId = "ItemCell"
-    private var selectedIndex: Int!
+    private var selectedDrink: Drink!
     private var cellWidth: CGFloat = 1
     private var cellHeight: CGFloat = 1
     private var windowInterfaceOrientation: UIInterfaceOrientation? {
-        return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
     }
-    private var bookmarks = [Drink]() {
+    private var favorites = [Drink]() {
         didSet {
-            bookmarksCounter.text = "(\(bookmarks.count))"
+            favoritesCounter.text = "(\(favorites.count))"
+            favoritesCollectionView.reloadData()
         }
     }
     private var myDrinks = [Drink]() {
         didSet {
             myDrinksCounter.text = "(\(myDrinks.count))"
+            myDrinksCollectionView.reloadData()
         }
     }
     
     // MARK: - OUTLETS
     
-    @IBOutlet weak var bookmarksCollectionView: UICollectionView!
+    @IBOutlet weak var favoritesCollectionView: UICollectionView!
     @IBOutlet weak var myDrinksCollectionView: UICollectionView!
-    @IBOutlet weak var bookmarksCounter: UILabel!
+    @IBOutlet weak var favoritesCounter: UILabel!
     @IBOutlet weak var myDrinksCounter: UILabel!
 
     
@@ -43,11 +46,12 @@ class HomeVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         calculateCellSize()
-//        tableView.backgroundColor = UIColor(named: "Color background")
 
-        bookmarksCollectionView.register(UINib.init(nibName: cellId, bundle: nil), forCellWithReuseIdentifier: cellId)
+        favoritesCollectionView.register(UINib.init(nibName: cellId, bundle: nil), forCellWithReuseIdentifier: cellId)
         myDrinksCollectionView.register(UINib.init(nibName: cellId, bundle: nil), forCellWithReuseIdentifier: cellId)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         fetchData()
     }
     
@@ -55,20 +59,24 @@ class HomeVC: UITableViewController {
         guard let windowInterfaceOrientation = windowInterfaceOrientation else { return }
         let itemPerRow: CGFloat = windowInterfaceOrientation.isPortrait ? 2.5 : 4
         let inset: CGFloat = 10
-        cellWidth = (bookmarksCollectionView.frame.width - (inset * (itemPerRow + 1))) / itemPerRow
+        cellWidth = (favoritesCollectionView.frame.width - (inset * (itemPerRow + 1))) / itemPerRow
         cellHeight = cellWidth + 60
     }
     
     func fetchData() {
+        guard let drinks = Bookmark.drinks else {
+            alert(title: "Erreur", message: "Impossible de récupérer les données.")
+            return
+        }
+        favorites = drinks
+        
         NetworkController().fetchDrinks(.random) { result in
             switch result {
             case .success(let drinks):
+                self.myDrinks = [Drink]()
                 for _ in 1...5 {
-                    self.bookmarks.append(contentsOf: drinks)
                     self.myDrinks.append(contentsOf: drinks)
                 }
-                self.bookmarksCollectionView.reloadData()
-                self.myDrinksCollectionView.reloadData()
             case .failure(let errorMessage):
                 self.alert(title: "Erreur", message: errorMessage.rawValue)
             }
@@ -84,8 +92,8 @@ class HomeVC: UITableViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        if bookmarksCollectionView != nil {
-            bookmarksCollectionView.reloadData()
+        if favoritesCollectionView != nil {
+            favoritesCollectionView.reloadData()
         }
         if myDrinksCollectionView != nil {
             myDrinksCollectionView.reloadData()
@@ -99,8 +107,8 @@ class HomeVC: UITableViewController {
 extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
-        case self.bookmarksCollectionView:
-            return bookmarks.count
+        case self.favoritesCollectionView:
+            return favorites.count
         case self.myDrinksCollectionView:
             return myDrinks.count
         default:
@@ -110,18 +118,20 @@ extension HomeVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
-        case self.bookmarksCollectionView:
-            guard let cell = bookmarksCollectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ItemCell else {
+        case self.favoritesCollectionView:
+            guard let cell = favoritesCollectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ItemCell else {
                 return UICollectionViewCell()
             }
-            cell.drink = bookmarks[indexPath.row]
+            cell.drink = favorites[indexPath.row]
             return cell
+            
         case self.myDrinksCollectionView:
-            guard let cell = bookmarksCollectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ItemCell else {
+            guard let cell = favoritesCollectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ItemCell else {
                 return UICollectionViewCell()
             }
             cell.drink = myDrinks[indexPath.row]
             return cell
+            
         default:
             return UICollectionViewCell()
         }
@@ -133,7 +143,11 @@ extension HomeVC: UICollectionViewDataSource {
 
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedIndex = indexPath.row
+        if collectionView.tag == 0 {
+            selectedDrink = favorites[indexPath.row]
+        } else {
+            selectedDrink = myDrinks[indexPath.row]
+        }
         performSegue(withIdentifier: "HomeToDrink", sender: self)
     }
 }
@@ -145,7 +159,7 @@ extension HomeVC {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "HomeToDrink" {
             guard let drinkVC = segue.destination as? DrinkVC else { return }
-            drinkVC.drink = bookmarks[selectedIndex]
+            drinkVC.drink = selectedDrink
         }
     }
 }
